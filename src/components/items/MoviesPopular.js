@@ -1,20 +1,20 @@
-import React, { useContext, useEffect } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native'
-import MoviesContext from '../../context/movies/AgileMoviesContext'
 
 import LoadingScreen from '../../screens/LoadingScreen'
 import RenderHeader from '../renderHeader'
 
-import { baseIMG } from '../../config/axios';
+import { baseIMG, baseURL, URL_POPULAR } from '../../config/axios';
 import { useNavigation } from '@react-navigation/core'
 
 import { globalStyles } from '../theme'
+import useFetch from '../../hooks/useFetch'
 
 const MoviesPopular = () => {
 
     const navigation = useNavigation();
 
-    const { popular, popularFetching } = useContext(MoviesContext);
+    const { dataRest, fetching } = useFetch(`${baseURL}${URL_POPULAR}`);
     
     const renderPopular = ({original_title, poster_path, id}) => {
         return(
@@ -37,10 +37,6 @@ const MoviesPopular = () => {
         )
     }
 
-    useEffect(() => {
-        if(!popular) return <LoadingScreen />;
-    }, [popular.data])
-
     return (
         <>
             <RenderHeader 
@@ -52,9 +48,9 @@ const MoviesPopular = () => {
                 }} 
             />
             {
-                popularFetching ? <LoadingScreen /> :(
+                fetching ? <LoadingScreen /> :(
                     <FlatList 
-                        data={popular.data}
+                        data={dataRest.data}
                         renderItem= {({item}) => renderPopular(item) }
                         keyExtractor={ (item) => item.id }
                         numColumns={2}
@@ -63,8 +59,6 @@ const MoviesPopular = () => {
                         //ListFooterComponent={(<LoadingScreen/>)}
                     /> 
                 )
-                
-                
             } 
         </>
     )

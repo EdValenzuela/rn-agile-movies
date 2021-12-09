@@ -8,7 +8,7 @@ import MoviesPopular from '../components/items/MoviesPopular';
 
 const HomeScreen = () => {
 
-    const { state, user, logout } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
 
     return (
         <View style={{
@@ -18,11 +18,6 @@ const HomeScreen = () => {
             <ScrollView>
                 <Header user={user} logout={logout} />
                 <MoviesNow />
-                {/* <Text>
-                    {
-                        JSON.stringify(state, null, 5)
-                    }
-                </Text> */}
                 <MoviesPopular />
             </ScrollView>
         </View>

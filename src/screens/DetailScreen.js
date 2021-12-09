@@ -9,8 +9,6 @@ import { globalStyles } from '../components/theme';
 const DetailScreen = ({route, navigation}) => {
     const { id, original_title } = route.params;
 
-    console.log({route})
-
     useEffect(() => {
         navigation.setOptions({
             title: `Detalle (${original_title} ${id})`,
@@ -22,7 +20,7 @@ const DetailScreen = ({route, navigation}) => {
     const renderHeaderDetalle = () => (<Text style={globalStyles.textHeader}>Reparto</Text>)
     const renderPopular = ({original_name, profile_path, character}) => {
         return(
-            <View style={{flex:1}}>
+            <View style={{flex:1, alignItems:'center'}}>
                 <View style={globalStyles.containerItem}>
                     <Image 
                         style={globalStyles.img}

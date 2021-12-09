@@ -8,8 +8,6 @@ import AuthContext from '../auth/AuthContext'
 
 const AgileMoviesProvider = ({children}) => {
 
-    const { token } = useContext(AuthContext);
-    
     const { dataRest, fetching } = useFetch(`${baseURL}${URL_NOW_PLAYING}`);
     const { dataRest: popular, fetching: popularFetching } = useFetch(`${baseURL}${URL_POPULAR}`);
 

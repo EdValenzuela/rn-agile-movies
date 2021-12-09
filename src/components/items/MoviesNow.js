@@ -1,16 +1,15 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { View, Text, FlatList, StyleSheet, Image } from 'react-native'
-import { baseIMG } from '../../config/axios'
+import { baseIMG, baseURL, URL_NOW_PLAYING } from '../../config/axios'
 
-import MoviesContext from '../../context/movies/AgileMoviesContext'
+import useFetch from '../../hooks/useFetch'
 
 import LoadingScreen from '../../screens/LoadingScreen'
 import RenderHeader from '../renderHeader'
 
 const MoviesNow = () => {
 
-    const { dataRest, fetching } = useContext(MoviesContext);
-    console.log(dataRest);
+    const { dataRest, fetching } = useFetch(`${baseURL}${URL_NOW_PLAYING}`);
     const renderItemSeparator = () => (<View style={{marginHorizontal: 10}} />)
     const renderMoviesPlaying = item => {
         const { release_date, poster_path } = item;

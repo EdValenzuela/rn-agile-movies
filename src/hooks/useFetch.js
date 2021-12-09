@@ -1,23 +1,23 @@
 import { useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { baseURL, clienteAxios } from '../config/axios';
+import AuthContext from '../context/auth/AuthContext';
 
 const useFetch = url => {
 
     const [dataRest, setDataRest] = useState([]);
     const [fetching, setFetching] = useState(true);
 
+    const { token } = useContext(AuthContext);
+    
+
     const getData = async() => {
         try {
-            const myToken = await AsyncStorage.getItem('token');
+            //const myToken = await AsyncStorage.getItem('token');
             let headers = new Headers();
 
-            console.log({myToken});
-
-            if(myToken !== null){
-                headers.append("Authorization", `Bearer ${myToken}`);
-            }
-
+            headers.append("Authorization", token && `Bearer ${token}`);
+            
             let requestOptions = {
                 method: 'GET',
                 headers,

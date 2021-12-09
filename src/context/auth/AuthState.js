@@ -91,8 +91,8 @@ const AuthStateProvider = ({children}) => {
     }
 
     const logout = async() => {
-        //await AsyncStorage.removeItem('token');
-        //await AsyncStorage.removeItem('refresh_token');
+        await AsyncStorage.removeItem('token');
+        await AsyncStorage.removeItem('refresh_token');
         dispatch({type: LOGIN_OUT})
     }
 
