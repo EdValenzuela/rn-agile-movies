@@ -1,20 +1,25 @@
-import React, { useReducer } from 'react'
+import React, { useContext } from 'react'
+import { baseURL, URL_NOW_PLAYING, URL_POPULAR } from '../../config/axios'
 
 import MoviesContext from './AgileMoviesContext'
-import AgileMoviesReducer from './AgileMoviesReducer'
+import useFetch from '../../hooks/useFetch'
+import AuthContext from '../auth/AuthContext'
 
-const initialState = {
-    dataMovies: [],
-}
 
 const AgileMoviesProvider = ({children}) => {
 
-    const [state, dispatch] = useReducer(AgileMoviesReducer, initialState)
+    const { token } = useContext(AuthContext);
+    
+    const { dataRest, fetching } = useFetch(`${baseURL}${URL_NOW_PLAYING}`);
+    const { dataRest: popular, fetching: popularFetching } = useFetch(`${baseURL}${URL_POPULAR}`);
 
     return (
         <MoviesContext.Provider
             value={{
-
+                dataRest,
+                fetching,
+                popular,
+                popularFetching
             }}
         >
             { children }

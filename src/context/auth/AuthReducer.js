@@ -5,9 +5,10 @@ const AuthReducer = (state, action) => {
         case LOGIN_FAIL:
             return{
                 ...state,
-                user: null,
+                user: '',
                 status: NOT_AUTHENTICATED,
                 token: null,
+                refresh_token:null,
                 errorMessage: action.payload
             }
 
@@ -22,6 +23,7 @@ const AuthReducer = (state, action) => {
                 ...state,
                 errorMessage: '',
                 status: AUTHENTICATED,
+                refresh_token : action.payload.refresh_token,
                 token: action.payload.token,
                 user: action.payload.user
             }
@@ -30,9 +32,10 @@ const AuthReducer = (state, action) => {
         case LOGIN_OUT:
             return{
                 ...state,
+                errorMessage: '',
                 status: NOT_AUTHENTICATED,
-                token: null,
-                user: null
+                refresh_token: null,
+                token: null
             }
         default:
             return state;

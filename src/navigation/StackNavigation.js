@@ -3,12 +3,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 //Context
 import AuthContext from '../context/auth/AuthContext';
-import { AUTHENTICATED } from '../types';
+import { AUTHENTICATED, CHECKING } from '../types';
 
 //Screens
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import DetailScreen from '../screens/DetailScreen';
+import LoadingScreen from '../screens/LoadingScreen';
 
 
 const Stack = createStackNavigator();
@@ -16,6 +17,8 @@ const Stack = createStackNavigator();
 export const StackNavigator = () => {
 
     const { status } = useContext(AuthContext);
+
+    //if(status === CHECKING) return <LoadingScreen />
 
     return (
         <Stack.Navigator

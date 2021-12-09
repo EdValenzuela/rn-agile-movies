@@ -1,11 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { View, Text, TextInput, StyleSheet, Keyboard, Alert } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { useForm } from '../hooks/useForm'
 
 import AuthContext from '../context/auth/AuthContext'
 
-const LoginScreen = ({navigation}) => {
+import { useForm } from '../hooks/useForm'
+
+import GlobalIcon from '../components/icons'
+
+const LoginScreen = () => {
 
     const { signIn, errorMessage, cleanMessage } = useContext(AuthContext);
 
@@ -15,7 +18,7 @@ const LoginScreen = ({navigation}) => {
     });
 
     useEffect(() => {
-        if(errorMessage === '' || !errorMessage) return;
+        if(errorMessage === '') return;
         
         Alert.alert('Login fallido', errorMessage || 'Error en el login',
             [
@@ -30,14 +33,23 @@ const LoginScreen = ({navigation}) => {
     const onLogin = () => {
         Keyboard.dismiss();
         signIn(form);
-        
     }
 
     return (
         <View style={styles.container}>
+            <View style={styles.containerIcon}>
+                <GlobalIcon 
+                    dataIcon={{
+                        color: 'black',
+                        size: 100,
+                        name: 'people'
+                    }}
+                />
+            </View>
             <View style={styles.containerLogin}>
                 <Text style={styles.label}>Usuario :</Text>
                 <TextInput 
+                    style={{fontSize: 20}}
                     placeholder="agilesoft"
                     onSubmitEditing={onLogin}
                     onChangeText={ (value) => onChange(value, 'username') }
@@ -45,6 +57,7 @@ const LoginScreen = ({navigation}) => {
                 />
                 <Text style={styles.label}>Contraseña :</Text>
                 <TextInput 
+                    style={{fontSize: 20}}
                     placeholder="agile1234"
                     secureTextEntry
                     onSubmitEditing={onLogin}
@@ -68,6 +81,10 @@ const styles = StyleSheet.create({
     container:{
         justifyContent:'center',
         flex:1,
+    },
+    containerIcon: {
+        alignItems: 'center',
+        marginBottom: 15
     },
     containerLogin:{
         paddingVertical:12,
